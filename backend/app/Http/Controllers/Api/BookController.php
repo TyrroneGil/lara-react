@@ -41,6 +41,13 @@ class BookController extends Controller
     public function show(string $id)
     {
         //
+        $book = Books::find($id);
+
+         return response()->json([
+            'success' => true,
+            'message' => 'Book found successfully!',
+            'data' => $book
+        ], 201);
     }
 
     /**
@@ -48,7 +55,26 @@ class BookController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+    //       $student = Student::find($request->id);
+    //     $validated= $request->validate([
+    //         'firstname'=>'required|max:100',
+    //         'middlename'=>'required|max:100',
+    //         'lastname'=>'required|max:100',
+    //         'contact_number'=>'required|max:100',
+    //         'course'=>'required|max:100',
+    //         'year'=>'required|max:100'
+    //     ]);
+    //   $student->update($validated);
+    $books = Books::find($id);
+    $validated= $request->validate([
+        'title'=>'required',
+        'author'=>'required'
+    ]);
+    $books->update($validated);
+     return response()->json([
+            'success' => true,
+            'message' => 'Book updated successfully!',
+        ], 201);
     }
 
     /**
